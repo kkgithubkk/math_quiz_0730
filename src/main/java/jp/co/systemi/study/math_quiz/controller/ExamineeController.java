@@ -1,17 +1,47 @@
 package jp.co.systemi.study.math_quiz.controller;
 
+import jp.co.systemi.study.math_quiz.domain.Examinee;
+import jp.co.systemi.study.math_quiz.service.ExamineeService;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 
 @Controller
+@Log4j2
+@RequestMapping("/examinees")
 public class ExamineeController {
 
-  @GetMapping("/examinee")
-  public String examinee(Model model) {
-    model.addAttribute("name", "hoge");
-    return "examinee/list";
+  private final ExamineeService examineeService;
+
+  @Autowired
+  public ExamineeController(ExamineeService examineeService) {
+    this.examineeService = examineeService;
   }
+
+  @GetMapping
+  public String index(Model model, @ModelAttribute("examinee") Examinee examinee) {
+    var examinees = examineeService.findAll();
+    model.addAttribute("num", examinees.size());
+    model.addAttribute("id", examinee.getId());
+    log.debug(examinee);
+    return "examinees/index";
+  }
+
+  @PostMapping
+  public String create(RedirectAttributes redirectAttributes) {
+    var createdExaminee = examineeService.insert();
+    redirectAttributes.addFlashAttribute("examinee",createdExaminee);
+    return "redirect:/examinees";
+  }
+
 
 }
