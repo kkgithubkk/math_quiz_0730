@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -e
+
+function up() {
+    docker compose down
+    docker compose up -d
+}
+
+function down() {
+    docker compose down
+}
+
+function bootRun() {
+  docker compose exec api ./gradlew bootRun "$@"
+}
+
+subcommand="$1"
+shift
+
+case $subcommand in
+up)
+  up
+  ;;
+bootRun)
+  bootRun "$@"
+  ;;
+*)
+  echo "コマンドが存在しません。"
+  ;;
+esac

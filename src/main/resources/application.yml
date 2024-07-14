@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: math_quiz
+  datasource:
+    url: jdbc:mysql://db:3316/math_quiz
+
