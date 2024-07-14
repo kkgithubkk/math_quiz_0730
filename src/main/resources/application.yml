@@ -2,5 +2,7 @@ spring:
   application:
     name: math_quiz
   datasource:
-    url: jdbc:mysql://db:3316/math_quiz
+    url: jdbc:mysql://db:3306/math_quiz
+    username: user
+    password: passwd
 
