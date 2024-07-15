@@ -26,9 +26,14 @@ public class ExamineeService {
 
   @Transactional
   public Examinee insert() {
-    var examinee = new Examinee();
+    var examinee = new Examinee(0);
     examineeMapper.insert(examinee);
     return examinee;
+  }
+
+  @Transactional
+  public void delete(int id) {
+    examineeMapper.delete(id);
   }
 
 }

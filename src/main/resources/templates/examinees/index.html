@@ -3,10 +3,18 @@
 <head>
     <title>被験者一覧</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function deleteExaminee(examineeId) {
+                document.getElementById(`delete-examinee-${examineeId}`).submit();
+        }
+    </script>
 </head>
 <body>
-<div th:if="${id}">
-    <p th:text="|id:${id}の被験者が追加されました|"/>
+<div th:if="${createdId}">
+    <p th:text="|id:${createdId}の被験者が追加されました|"/>
+</div>
+<div th:if="${deletedId}">
+    <p th:text="|id:${deletedId}の被験者が削除されました|"/>
 </div>
 <p th:text="|被験者は${num}人です|"/>
 
@@ -15,6 +23,25 @@
         <input type="submit" value="新規登録">
     </div>
 </form>
+
+<table>
+    <thead>
+    <tr>
+        <th>被験者ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="examinee: ${examinees}">
+        <td th:text="${examinee.id}"></td>
+        <td>
+            <form th:id="'delete-examinee-' + ${examinee.id}" th:action="@{/examinees/{id}(id=${examinee.id})}" th:method="delete">
+                <button type="button" th:onclick="|deleteExaminee('__${examinee.id}__')|">削除</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 
 </body>
 </html>
