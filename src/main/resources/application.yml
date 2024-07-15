@@ -5,4 +5,7 @@ spring:
     url: jdbc:mysql://db:3306/math_quiz
     username: user
     password: passwd
-
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
