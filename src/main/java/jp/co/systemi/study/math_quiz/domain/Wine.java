@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 @Data
 public class Wine implements Serializable {
-  @Setter(AccessLevel.NONE)
-  private int id;
-  private final boolean toxic;
+  private final Integer id;
+  private final Boolean toxic;
 }

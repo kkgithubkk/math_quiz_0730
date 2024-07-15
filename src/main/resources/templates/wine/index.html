@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ワイン一覧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function deleteWine(wineId) {
+            document.getElementById(`delete-wine-${wineId}`).submit();
+        }
+    </script>
+</head>
+<body>
+<div th:if="${createdId}">
+    <p th:text="|id:${createdId}のワインが追加されました|"/>
+</div>
+<div th:if="${deletedId}">
+    <p th:text="|id:${deletedId}のワインが削除されました|"/>
+</div>
+<p th:text="|ワインは${num}種類です|"/>
+
+<form th:action="@{/wine}" th:object="${wineForm}" method="post">
+    <div>
+        <input type="submit" value="新規登録">
+    </div>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ワインID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wine: ${wineList}">
+        <td th:text="${wine.id}"></td>
+        <td>
+            <form th:id="'delete-wine-' + ${wine.id}" th:action="@{/wine/{id}(id=${wine.id})}"
+                  th:method="delete">
+                <button type="button" th:onclick="|deleteWine('__${wine.id}__')|">削除</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
