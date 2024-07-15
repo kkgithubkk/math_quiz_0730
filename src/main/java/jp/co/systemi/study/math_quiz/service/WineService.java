@@ -24,7 +24,7 @@ public class WineService {
 
   @Transactional
   public Wine insert(boolean toxic) {
-    var wine = new Wine(0,toxic);
+    var wine = new Wine(0, toxic);
     wineMapper.insert(wine);
     return wine;
   }
