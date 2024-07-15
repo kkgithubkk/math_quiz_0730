@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script>
         function deleteExaminee(examineeId) {
-                document.getElementById(`delete-examinee-${examineeId}`).submit();
+            document.getElementById(`delete-examinee-${examineeId}`).submit();
         }
     </script>
 </head>
@@ -34,7 +34,8 @@
     <tr th:each="examinee: ${examinees}">
         <td th:text="${examinee.id}"></td>
         <td>
-            <form th:id="'delete-examinee-' + ${examinee.id}" th:action="@{/examinees/{id}(id=${examinee.id})}" th:method="delete">
+            <form th:id="'delete-examinee-' + ${examinee.id}" th:action="@{/examinees/{id}(id=${examinee.id})}"
+                  th:method="delete">
                 <button type="button" th:onclick="|deleteExaminee('__${examinee.id}__')|">削除</button>
             </form>
         </td>

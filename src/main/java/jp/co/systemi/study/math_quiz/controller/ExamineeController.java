@@ -25,8 +25,9 @@ public class ExamineeController {
   }
 
   @GetMapping
-  public String index(Model model, @ModelAttribute("createdExaminee") Examinee createdExaminee
-  ,@ModelAttribute("deletedExaminee") Examinee deletedExaminee) {
+  public String index(Model model,
+                      @ModelAttribute("createdExaminee") Examinee createdExaminee
+          , @ModelAttribute("deletedExaminee") Examinee deletedExaminee) {
     List<Examinee> examinees = examineeService.findAll();
     model.addAttribute("examinees", examinees);
     model.addAttribute("num", examinees.size());
@@ -39,15 +40,16 @@ public class ExamineeController {
   @PostMapping
   public String create(RedirectAttributes redirectAttributes) {
     var createdExaminee = examineeService.insert();
-    redirectAttributes.addFlashAttribute("createdExaminee",createdExaminee);
+    redirectAttributes.addFlashAttribute("createdExaminee", createdExaminee);
     return "redirect:/examinees";
   }
 
   @DeleteMapping("{id}")
-  public String delete(@PathVariable Integer id,RedirectAttributes redirectAttributes) {
+  public String delete(@PathVariable Integer id,
+                       RedirectAttributes redirectAttributes) {
     var examinee = new Examinee(id);
     examineeService.delete(id);
-    redirectAttributes.addFlashAttribute("deletedExaminee",examinee);
+    redirectAttributes.addFlashAttribute("deletedExaminee", examinee);
     return "redirect:/examinees";
   }
 

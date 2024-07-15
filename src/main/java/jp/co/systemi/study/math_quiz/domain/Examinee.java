@@ -1,6 +1,6 @@
 package jp.co.systemi.study.math_quiz.domain;
 
-import lombok.*;
+import lombok.Data;
 
 import java.io.Serializable;
 
