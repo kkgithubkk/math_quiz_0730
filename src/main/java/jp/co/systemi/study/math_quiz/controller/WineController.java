@@ -1,11 +1,13 @@
 package jp.co.systemi.study.math_quiz.controller;
 
 import jp.co.systemi.study.math_quiz.domain.Wine;
+import jp.co.systemi.study.math_quiz.form.WineForm;
 import jp.co.systemi.study.math_quiz.service.WineService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -38,8 +40,10 @@ public class WineController {
 
 
   @PostMapping
-  public String create(RedirectAttributes redirectAttributes) {
-    var createdWine = wineService.insert();
+  public String create(
+          @ModelAttribute() @Validated WineForm wineForm,
+          RedirectAttributes redirectAttributes) {
+    var createdWine = wineService.insert(wineForm.getToxic());
     redirectAttributes.addFlashAttribute("createdWine", createdWine);
     return "redirect:/wine";
   }
