@@ -19,13 +19,10 @@ import java.util.List;
 public class ExamineeController {
 
   private final ExamineeService examineeService;
-  private final DefaultErrorViewResolver conventionErrorViewResolver;
 
   @Autowired
-  public ExamineeController(ExamineeService examineeService,
-                            DefaultErrorViewResolver conventionErrorViewResolver) {
+  public ExamineeController(ExamineeService examineeService) {
     this.examineeService = examineeService;
-    this.conventionErrorViewResolver = conventionErrorViewResolver;
   }
 
   @GetMapping
