@@ -45,6 +45,8 @@ public class WineController {
           RedirectAttributes redirectAttributes) {
     var createdWine = wineService.insert(wineForm.getToxic());
     redirectAttributes.addFlashAttribute("createdWine", createdWine);
+    log.info("Wine (id:{}) is added. The toxic flag is {}.",
+            createdWine.getId(), wineForm.getToxic());
     return "redirect:/wine";
   }
 
@@ -54,6 +56,7 @@ public class WineController {
     var wine = new Wine(id, false);
     wineService.delete(id);
     redirectAttributes.addFlashAttribute("deletedWine", wine);
+    log.info("Wine (id:{}) is deleted.", id);
     return "redirect:/wine";
   }
 
