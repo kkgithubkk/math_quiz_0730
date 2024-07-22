@@ -13,4 +13,9 @@ public class Ingestion implements Serializable {
   private final OffsetDateTime ingestionTime;
   private final OffsetDateTime createdDatetime;
   private final OffsetDateTime updatedDatetime;
+
+  public static Ingestion create(int examineeId, int wineId,
+                                 OffsetDateTime ingestionTime) {
+    return new Ingestion(0, examineeId, wineId, ingestionTime, null, null);
+  }
 }

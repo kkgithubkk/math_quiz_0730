@@ -1,10 +1,7 @@
 package jp.co.systemi.study.math_quiz.mapper;
 
 import jp.co.systemi.study.math_quiz.domain.Ingestion;
-import org.apache.ibatis.annotations.Arg;
-import org.apache.ibatis.annotations.ConstructorArgs;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -21,4 +18,13 @@ public interface IngestionMapper {
           @Arg(column = "updated_datetime", javaType = OffsetDateTime.class)
   })
   List<Ingestion> selectAll();
+
+
+  @Insert("INSERT INTO wine_ingestion_history (examinee_id, wine_id, " +
+          "ingestion_time) " +
+          "VALUES (#{ingestion.examineeId},#{ingestion.wineId},#{ingestion" +
+          ".ingestionTime})")
+  @Options(useGeneratedKeys = true, keyProperty = "ingestion.id")
+  void insert(@Param("ingestion") Ingestion ingestion);
+
 }
