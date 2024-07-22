@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class ExamineeService {
 
   @Transactional
   public Examinee insert() {
-    var examinee = new Examinee(0);
+    var examinee = new Examinee(0, OffsetDateTime.now(), OffsetDateTime.now());
     examineeMapper.insert(examinee);
     return examinee;
   }

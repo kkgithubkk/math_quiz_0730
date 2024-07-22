@@ -51,7 +51,7 @@ public class WineController {
   @DeleteMapping("{id}")
   public String delete(@PathVariable Integer id,
                        RedirectAttributes redirectAttributes) {
-    var wine = new Wine(id, false);
+    var wine = Wine.create(id);
     wineService.delete(id);
     redirectAttributes.addFlashAttribute("deletedWine", wine);
     return "redirect:/wine";

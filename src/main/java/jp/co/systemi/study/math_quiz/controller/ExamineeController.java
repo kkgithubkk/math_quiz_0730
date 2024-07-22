@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 
@@ -26,8 +27,8 @@ public class ExamineeController {
 
   @GetMapping
   public String index(Model model,
-                      @ModelAttribute("createdExaminee") Examinee createdExaminee
-          , @ModelAttribute("deletedExaminee") Examinee deletedExaminee) {
+                      @ModelAttribute("createdExaminee") Examinee createdExaminee,
+                      @ModelAttribute("deletedExaminee") Examinee deletedExaminee) {
     List<Examinee> examinees = examineeService.findAll();
     model.addAttribute("examinees", examinees);
     model.addAttribute("num", examinees.size());
@@ -47,7 +48,7 @@ public class ExamineeController {
   @DeleteMapping("{id}")
   public String delete(@PathVariable Integer id,
                        RedirectAttributes redirectAttributes) {
-    var examinee = new Examinee(id);
+    var examinee = new Examinee(id, OffsetDateTime.now(), OffsetDateTime.now());
     examineeService.delete(id);
     redirectAttributes.addFlashAttribute("deletedExaminee", examinee);
     return "redirect:/examinees";
