@@ -4,6 +4,7 @@ import jp.co.systemi.study.math_quiz.domain.Examinee;
 import jp.co.systemi.study.math_quiz.service.ExamineeService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.error.DefaultErrorViewResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,7 @@ public class ExamineeController {
   public String create(RedirectAttributes redirectAttributes) {
     var createdExaminee = examineeService.insert();
     redirectAttributes.addFlashAttribute("createdExaminee", createdExaminee);
+    log.info("An examinee (id:{}) is added.", createdExaminee.getId());
     return "redirect:/examinees";
   }
 
@@ -51,6 +53,7 @@ public class ExamineeController {
     var examinee = new Examinee(id, OffsetDateTime.now(), OffsetDateTime.now());
     examineeService.delete(id);
     redirectAttributes.addFlashAttribute("deletedExaminee", examinee);
+    log.info("An examinee (id:{}) is deleted.", id);
     return "redirect:/examinees";
   }
 
