@@ -1,0 +1,23 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class node0 as "examinee  /* 被験者 */" {
+   id  /* ID */: int unsigned
+}
+class node1 as "wine  /* ワイン */" {
+   toxic  /* 毒性の有無 TRUE:毒性あり */: tinyint(1)
+   id  /* ID */: int unsigned
+}
+class node2 as "wine_ingestion_history  /* ワイン摂取履歴 */" {
+   examinee_id: int unsigned
+   wine_id: int unsigned
+   ingestion_time: datetime
+   id: int unsigned
+}
+
+node2  -[#595959,plain]-^  node0 : "examinee_id:id"
+node2  -[#595959,plain]-^  node1 : "wine_id:id"
+@enduml
